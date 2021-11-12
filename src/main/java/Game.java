@@ -1,5 +1,8 @@
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -12,14 +15,17 @@ import java.io.IOException;
 public class Game {
 
     private Screen screen;
-    private Arena arena = new Arena(100, 50);
+    private static final int WIDTH = 100;
+    private static final int HEIGHT = 50;
+    private Arena arena = new Arena(WIDTH, HEIGHT);
 
     public Game() throws IOException {
 
-            TerminalSize terminalSize = new TerminalSize(100, 50);
+            TerminalSize terminalSize = new TerminalSize(WIDTH, HEIGHT);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
             Terminal terminal = terminalFactory.createTerminal();
             screen = new TerminalScreen(terminal);
+            TextGraphics graphics = screen.newTextGraphics();
             screen.setCursorPosition(null); // we don't need a cursor
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if necessary
@@ -27,7 +33,7 @@ public class Game {
     private void draw() throws IOException {
 
         screen.clear();
-        arena.draw(screen);
+        arena.draw(screen.newTextGraphics());
         screen.refresh();
 
     }
