@@ -16,7 +16,7 @@ public class Hero {
     }
     public void draw_h(TextGraphics graphics) {
 
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "X");
 
