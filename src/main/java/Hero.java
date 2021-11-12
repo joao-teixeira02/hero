@@ -5,13 +5,11 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
-public class Hero {
+public class Hero extends Element{
 
-    private Position pos;
+    public Hero(int x, int y) {
 
-    public Hero(Position position) {
-
-        pos = position;
+        super(x, y);
 
     }
     public void draw_h(TextGraphics graphics) {

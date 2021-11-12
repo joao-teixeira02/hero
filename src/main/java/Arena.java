@@ -12,8 +12,7 @@ public class Arena {
 
     private int width;
     private int height;
-    private Position pos = new Position(10,10);
-    private Hero hero = new Hero(pos);
+    private Hero hero = new Hero(10, 10);
     private List<Wall> walls;
 
     public Arena(int w, int h) {
@@ -59,7 +58,7 @@ public class Arena {
             return false;
 
         }
-        else if (pos.getY() >= height || pos.getY() < 0) {
+        if (pos.getY() >= height || pos.getY() < 0) {
 
             return false;
 

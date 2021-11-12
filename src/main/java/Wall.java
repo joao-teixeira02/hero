@@ -6,13 +6,11 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Wall {
-
-    private Position pos;
+public class Wall extends Element{
 
     public Wall(int x, int y) {
 
-        pos = new Position(x, y);
+        super(x, y);
 
     }
     public Position getPosition(){
