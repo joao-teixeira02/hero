@@ -66,7 +66,7 @@ public class Arena {
         }
         for (Wall wall:walls) {
 
-            if(wall.getY() == pos.getY() && wall.getX() == pos.getX()) {
+            if(wall.getPosition().equals(pos)) {
 
                 return false;
 

@@ -8,29 +8,32 @@ import java.util.List;
 
 public class Wall {
 
-    private int x;
-    private int y;
+    private Position pos;
 
     public Wall(int x, int y) {
 
-        this.x = x;
-        this.y = y;
+        pos = new Position(x, y);
 
     }
-    public int getX() {
+    public Position getPosition(){
 
-        return x;
+        return pos;
 
     }
-    public int getY() {
+    public int getX(){
 
-        return y;
+        return pos.getX();
+
+    }
+    public int getY(){
+
+        return pos.getY();
 
     }
     public void draw(TextGraphics graphics) {
 
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
-        graphics.putString(new TerminalPosition(x, y), "M");
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "M");
 
     }
 }
