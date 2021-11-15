@@ -7,5 +7,19 @@ public abstract class Element {
         pos = new Position(x, y);
 
     }
+    public int getX(){
 
+        return pos.getX();
+
+    }
+    public int getY(){
+
+        return pos.getY();
+
+    }
+    public Position getPosition(){
+
+        return pos;
+
+    }
 }

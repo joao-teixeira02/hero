@@ -13,21 +13,6 @@ public class Wall extends Element{
         super(x, y);
 
     }
-    public Position getPosition(){
-
-        return pos;
-
-    }
-    public int getX(){
-
-        return pos.getX();
-
-    }
-    public int getY(){
-
-        return pos.getY();
-
-    }
     public void draw(TextGraphics graphics) {
 
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
