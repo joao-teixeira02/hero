@@ -22,4 +22,10 @@ public abstract class Element {
         return pos;
 
     }
+    public void setPos(Position position) {
+        pos = position;
+    }
+    public boolean check(int x, int y) {
+        return pos.getX() != x || pos.getY() != y;
+    }
 }

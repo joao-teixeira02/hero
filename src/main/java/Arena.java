@@ -16,6 +16,7 @@ public class Arena {
     private Hero hero = new Hero(10, 10);
     private List<Wall> walls;
     private List<Coin> coins;
+    private List<Monster> monsters;
 
     public Arena(int w, int h) {
 
@@ -23,6 +24,7 @@ public class Arena {
         height = h;
         this.walls = createWalls();
         this.coins = createCoins();
+        this.monsters = createMonsters();
 
     }
     private List<Wall> createWalls() {
@@ -41,7 +43,7 @@ public class Arena {
         Random random = new Random();
         ArrayList<Coin> coins = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 7; i++) {
             Coin coin = new Coin(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1);
 
             while (!(coin.check(hero.getX(), hero.getY()) || coin.check(coins.get(i).getX(), coins.get(i).getY()))) {
@@ -54,6 +56,23 @@ public class Arena {
         }
         return coins;
     }
+    private List<Monster> createMonsters() {
+        Random random = new Random();
+        List<Monster> monsters = new ArrayList<>();
+
+        for (int i = 0; i < 4; i++) {
+            Monster monster = new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1);
+
+            while (!(monster.check(hero.getX(), hero.getY()))) {
+
+                //while the coin is not in a valid position, we will keep generating new ones until it is
+
+                monster = new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1);
+            }
+            monsters.add(monster);
+        }
+        return monsters;
+    }
     public void draw(TextGraphics graphics) {
 
         graphics.setBackgroundColor(TextColor.Factory.fromString("#000000"));
@@ -65,13 +84,25 @@ public class Arena {
         for (Coin coin : coins) {
             coin.draw(graphics);
         }
+        for (Monster monster : monsters) {
+            monster.draw(graphics);
+        }
         hero.draw_h(graphics);
 
     }
     private void moveHero(Position position) {
-        if (canHeroMove(position)) {
+        if (canEntityMove(position)) {
             hero.setPosition(position);
+            verifyMonsterCollisions();
             retrieveCoins();
+            moveMonsters();
+            verifyMonsterCollisions();
+        }
+    }
+    public void moveMonsters() {
+        for (Monster monster : monsters) {
+            Position position = monster.move();
+            if (canEntityMove(position)) monster.setPos(position);
         }
     }
     public void retrieveCoins() {
@@ -84,7 +115,14 @@ public class Arena {
         }
 
     }
-    public boolean canHeroMove(Position pos) {
+    public void verifyMonsterCollisions() {
+        for (Monster monster : monsters) {
+            if (hero.getPosition().equals(monster.getPosition())) {
+                System.exit(0);
+            }
+        }
+    }
+    public boolean canEntityMove(Position pos) {
 
         if (pos.getX() >= width || pos.getX() < 0) {
 
@@ -127,6 +165,5 @@ public class Arena {
                 break;
 
         }
-
     }
 }

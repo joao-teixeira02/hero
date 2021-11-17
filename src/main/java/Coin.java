@@ -15,9 +15,6 @@ public class Coin extends Element{
         graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "O");
 
     }
-    public boolean check(int x, int y) {
-        return pos.getX() != x || pos.getY() != y;
-    }
     public boolean land(Position position) {
         return pos.getX() == position.getX() && pos.getY() == position.getY();
     }
