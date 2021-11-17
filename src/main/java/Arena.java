@@ -17,6 +17,8 @@ public class Arena {
     private List<Wall> walls;
     private List<Coin> coins;
     private List<Monster> monsters;
+    private Integer scr = 0;
+    public boolean ctrl = false;
 
     public Arena(int w, int h) {
 
@@ -26,6 +28,9 @@ public class Arena {
         this.coins = createCoins();
         this.monsters = createMonsters();
 
+    }
+    public boolean isCtrl() {
+        return ctrl;
     }
     private List<Wall> createWalls() {
         List<Wall> walls = new ArrayList<>();
@@ -87,6 +92,8 @@ public class Arena {
         for (Monster monster : monsters) {
             monster.draw(graphics);
         }
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(45, 0, "Score: " + scr.toString());
         hero.draw_h(graphics);
 
     }
@@ -95,6 +102,9 @@ public class Arena {
             hero.setPosition(position);
             verifyMonsterCollisions();
             retrieveCoins();
+            if (coins.size() == 0) {
+                ctrl = true;
+            }
             moveMonsters();
             verifyMonsterCollisions();
         }
@@ -109,11 +119,11 @@ public class Arena {
 
         for (Coin coin : coins) {
             if (coin.land(hero.getPosition())) {
+                scr ++;
                 coins.remove(coin);
                 break;
             }
         }
-
     }
     public void verifyMonsterCollisions() {
         for (Monster monster : monsters) {
@@ -125,21 +135,15 @@ public class Arena {
     public boolean canEntityMove(Position pos) {
 
         if (pos.getX() >= width || pos.getX() < 0) {
-
             return false;
-
         }
         if (pos.getY() >= height || pos.getY() < 0) {
-
             return false;
-
         }
         for (Wall wall:walls) {
 
             if(wall.getPosition().equals(pos)) {
-
                 return false;
-
             }
         }
         return true;
@@ -147,7 +151,6 @@ public class Arena {
     public void processKey(KeyStroke key) {
 
         System.out.println(key);
-
 
         switch (key.getKeyType()) {
 

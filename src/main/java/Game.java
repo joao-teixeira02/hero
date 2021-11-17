@@ -47,8 +47,15 @@ public class Game {
             key = screen.readInput();
             processKey(key);
 
-        } while (key.getKeyType() != KeyType.EOF && !(key.getCharacter() != null && key.getCharacter() == 'q'));
+        } while (key.getKeyType() != KeyType.EOF && !(key.getCharacter() != null && key.getCharacter() == 'q') && !(arena.isCtrl()));
 
+        screen.clear();
+
+        TextGraphics graph = screen.newTextGraphics();
+        graph.putString(45, 9, "YOU WON!");
+
+        screen.refresh();
+        screen.readInput();
         screen.close();
 
     }
